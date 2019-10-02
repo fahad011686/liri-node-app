@@ -120,56 +120,6 @@ var concertThis = function () {
         })
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var doWhat = function () {
     var spotifySearch;
     fs.readFile("random.txt", "utf8", function (error, note) {

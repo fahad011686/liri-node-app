@@ -2,6 +2,9 @@ require('dotenv').config();
 var inquirer = require("inquirer");
 var keys = require("./keys.js");
 // console.log(keys);
+var moment = require('moment');
+var fs = require("fs");
+
 
 // spotify this
 var Spotify = require('node-spotify-api');
@@ -73,31 +76,49 @@ var omdbThis = function () {
         })
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //concert-this
-//"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
+var concertThis = function () {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Please enter a band name.",
+            name: "choice"
+        }
+    ])
+        .then(function (inquirerResponse) {
+            bandSearch = inquirerResponse.choice;
+            var axios = require("axios");
+            axios.get("https://rest.bandsintown.com/artists/" + bandSearch + "/events?app_id=codingbootcamp")
+
+                .then(
+                    function (response) {
+                        console.log("Show 1: " + moment(response.data[0].datetime).format("MMMM Do YYYY"));
+                        console.log(response.data[0].venue.name + " in " + response.data[0].venue.city);
+
+                        console.log("Show 2: " + moment(response.data[1].datetime).format("MMMM Do YYYY"));
+                        console.log(response.data[1].venue.name + " in " + response.data[1].venue.city);
+
+                        console.log("Show 3: " + moment(response.data[2].datetime).format("MMMM Do YYYY"));
+                        console.log(response.data[2].venue.name + " in " + response.data[2].venue.city);
+                    })
+                .catch(function (error) {
+                    if (error.response) {
+                        console.log("---------------Data---------------");
+                        console.log(error.response.data);
+                        console.log("---------------Status---------------");
+                        console.log(error.response.status);
+                        console.log("---------------Status---------------");
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        console.log(error.request);
+                    } else {
+                        console.log("Error", error.message);
+                    }
+                    console.log(error.config);
+                });
+
+        })
+};
 
 
 
@@ -135,6 +156,41 @@ var omdbThis = function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var doWhat = function () {
+    var spotifySearch;
+    fs.readFile("random.txt", "utf8", function (error, note) {
+        if (error) {
+            return console.log(error);
+        }
+        var dataArr = note.split(",");
+        console.log(dataArr[1]);
+
+        spotifySearch = dataArr[1];
+
+        spotify.search({ type: 'track', query: spotifySearch }, function (err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+            console.log(data.tracks.items[0].name);
+            console.log(data.tracks.items[0].album.artists[0].name);
+
+        });
+    })
+}
 
 var runLiri = function () {
     inquirer
@@ -142,17 +198,22 @@ var runLiri = function () {
             {
                 type: "list",
                 message: "Which application would you like to run?",
-                choices: ["Spotify-This", "OMDB-This", "Concert-This"],
+                choices: ["Spotify-This", "OMDB-This", "Concert-This", "Do What It Says"],
                 name: "app"
             }
         ])
         .then(function (choice) {
-            // If the inquirerResponse confirms, we displays the inquirerResponse's username and pokemon from the answers.
             if (choice.app == "Spotify-This") {
                 spotifyThis();
             }
-            else if (choice.app == "OMDB-This"){
+            else if (choice.app == "OMDB-This") {
                 omdbThis();
+            }
+            else if (choice.app == "Concert-This") {
+                concertThis();
+            }
+            else {
+                doWhat();
             }
         });
 }

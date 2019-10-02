@@ -7,6 +7,7 @@ Choose your client from the options, and then enter a search query when prompted
 
 ## Spotify-This
 ![spotify](./img/spotify.png)
+
 A Spotify client that will return song data:
 * Title, even if user entered lowercase
 * Band
@@ -15,6 +16,7 @@ A Spotify client that will return song data:
 
 ## OMDB-This
 ![omdb](./img/omdb.png)
+
 An OMDB client to scrape movie data:
 * Title(Year)
 * Starring
@@ -23,6 +25,7 @@ An OMDB client to scrape movie data:
 
 ## Concert-This
 ![band](./img/band.png)
+
 A concert app to search for upcoming shows via Bands in Town
 * Three upcoming tour dates
  * Date, formatted using Moment.js

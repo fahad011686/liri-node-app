@@ -10,9 +10,14 @@ var fs = require("fs");
 var Spotify = require('node-spotify-api');
 // var spotify = new Spotify(keys.spotify);
 // above and below both seem to work now
+// var spotify = new Spotify({
+//     id: keys.spotify.id,
+//     secret: keys.spotify.secret
+// });
+
 var spotify = new Spotify({
-    id: keys.spotify.id,
-    secret: keys.spotify.secret
+    id: "83829c9153d64a81b27fe27c81c2b478",
+    secret: "70813d913da94113a4aa6baff7bf8804"
 });
 
 var spotifyThis = function () {
@@ -34,6 +39,7 @@ var spotifyThis = function () {
                 console.log(data.tracks.items[0].album.artists[0].name);
                 console.log("Album: " + data.tracks.items[0].album.name + " (" + (data.tracks.items[0].album.release_date.split('-'))[0] + ")");
                 console.log(data.tracks.items[0].external_urls);
+                runLiri();
             });
         })
 };
@@ -56,6 +62,7 @@ var omdbThis = function () {
                     console.log("Starring: " + response.data.Actors);
                     console.log("Directed by : " + response.data.Director);
                     console.log(response.data.imdbRating + " IMDB Rating");
+                    runLiri();
                 })
                 .catch(function (error) {
                     if (error.response) {
@@ -94,12 +101,11 @@ var concertThis = function () {
                     function (response) {
                         console.log("Show 1: " + moment(response.data[0].datetime).format("MMMM Do YYYY"));
                         console.log(response.data[0].venue.name + " in " + response.data[0].venue.city);
-
                         console.log("Show 2: " + moment(response.data[1].datetime).format("MMMM Do YYYY"));
                         console.log(response.data[1].venue.name + " in " + response.data[1].venue.city);
-
                         console.log("Show 3: " + moment(response.data[2].datetime).format("MMMM Do YYYY"));
                         console.log(response.data[2].venue.name + " in " + response.data[2].venue.city);
+                        runLiri();
                     })
                 .catch(function (error) {
                     if (error.response) {

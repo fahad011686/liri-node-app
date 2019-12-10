@@ -1,12 +1,12 @@
 # liri-node-app
 
-![title](./img/menu.png)
+![title](./img/menu2.png)
 
 Hi, welcome to Liri, a simple app coded by Fahad to help pull information for you based on your input.
 Choose your client from the options, and then enter a search query when prompted!
 
 ## Spotify-This
-![spotify](./img/spotify.png)
+![spotify](./img/menu.gif)
 
 A Spotify client that will return song data:
 * Title, even if user entered lowercase

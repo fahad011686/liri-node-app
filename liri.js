@@ -1,7 +1,6 @@
 require('dotenv').config();
 var inquirer = require("inquirer");
 var keys = require("./keys.js");
-// console.log(keys);
 var moment = require('moment');
 var fs = require("fs");
 
@@ -36,7 +35,7 @@ var spotifyThis = function () {
                     return console.log('Error occurred: ' + err);
                 }
                 console.log(data.tracks.items[0].name);
-                console.log(data.tracks.items[0].album.artists[0].name);
+                console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
                 console.log("Album: " + data.tracks.items[0].album.name + " (" + (data.tracks.items[0].album.release_date.split('-'))[0] + ")");
                 console.log(data.tracks.items[0].external_urls);
                 runLiri();
@@ -141,8 +140,8 @@ var doWhat = function () {
             if (err) {
                 return console.log('Error occurred: ' + err);
             }
-            console.log(data.tracks.items[0].name);
-            console.log(data.tracks.items[0].album.artists[0].name);
+            console.log("Track: " + data.tracks.items[0].name);
+            console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
 
         });
     })
